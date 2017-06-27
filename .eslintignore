@@ -1,0 +1,11 @@
+node_modules/**
+lib/**
+webpack.*
+*/dev-tools/**
+*.gzip
+*.7z
+*.conf.js
+*.dist.js
+*.test.js
+**/tests/**
+**/testing/**

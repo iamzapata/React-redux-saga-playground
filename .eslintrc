@@ -1,0 +1,79 @@
+
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "react"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jquery": true,
+  },
+  "globals": {
+    "SERVER_URL": true,
+    "GRANT_TYPE": true,
+    "CLIENT_ID": true,
+    "CLIENT_SECRET": true,
+    "ADMIN_QUERY_URL": true,
+    "REPORTING_SERVER_API": true
+  },
+  "extends": ["airbnb", "plugin:react/recommended"],
+
+  "rules": {
+    // Disable or lower some airbnb rules that we don't want here :)
+    "comma-dangle": 0,
+    "max-len": [1, { "code": 100, "ignoreComments": true, "ignoreUrls": true, "ignoreTemplateLiterals": true, "ignoreRegExpLiterals": true }],
+    "import/extensions": 1,
+    "import/no-unresolved": 1,
+    "import/no-extraneous-dependencies": 2,
+    "import/prefer-default-export": 1,
+    "no-use-before-define": [2, "nofunc"],
+    "no-undef": 1,
+    "no-unused-vars": [2, { "args": "after-used", "caughtErrors": "none" }],
+    "dot-notation": 1,
+    "consistent-return": 1,
+    // Enable "no-warning-comments" to quickly find TODOs and refactor/fix leftovers
+    // "no-warning-comments": [1, { "terms": ["todo", "fixme"], "location": "anywhere" }],
+    "no-console": [1, { "allow": ["warn", "error"] }],
+
+    // eslint-plugin-react
+    "react/display-name": 1,
+    "react/jsx-boolean-value": 2,
+    "react/jsx-curly-spacing": [2, "never"],
+    "react/jsx-equals-spacing": [2, "never"],
+    "react/jsx-no-undef": 2,
+    // "react/jsx-sort-props": 0,
+    // "react/jsx-space-before-closing": [2, "always"],
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/no-did-mount-set-state": 1,
+    "react/no-did-update-set-state": 2,
+    // "react/no-multi-comp": 0,
+    "react/no-unknown-property": 2,
+    "react/prefer-es6-class": 2,
+    "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
+    "react/prop-types": 1,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-indent": [1, 2, { "indentLogicalExpressions": false }],
+
+    // react/require-extension is deprecated. Need to use import/extension instead
+    "react/require-extension": 0, 
+
+    // Strict Mode
+    "strict": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "webpack": {
+        "config": "./webpack.test.config.js"
+      }
+    }
+  }
+}
