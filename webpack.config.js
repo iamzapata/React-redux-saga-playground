@@ -40,6 +40,8 @@ module.exports = {
 
     alias: {
       components: path.resolve(__dirname, 'app/components/'),
+      actions: path.resolve(__dirname, 'app/actions'),
+      reducers: path.resolve(__dirname, 'app/reducers')
     }
   },
 
