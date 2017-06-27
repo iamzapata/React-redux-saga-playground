@@ -61,7 +61,7 @@
     "react/prefer-stateless-function": [2, { "ignorePureComponents": true }],
     "react/prop-types": 1,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "react/jsx-indent": [1, 2, { "indentLogicalExpressions": false }],
+    //"react/jsx-indent": [1, 2, { "indentLogicalExpressions": false }],
 
     // react/require-extension is deprecated. Need to use import/extension instead
     "react/require-extension": 0, 
