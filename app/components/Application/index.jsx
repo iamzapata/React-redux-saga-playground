@@ -1,18 +1,89 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { selectReddit, invalidateReddit } from 'actions'
+import Picker from 'components/Picker'
+import Posts from 'components/Posts'
 
 class Application extends Component {
+  constructor(props) {
+    super(props)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleRefreshClick = this.handleRefreshClick.bind(this)
+  }
 
-	render() {
+  handleChange(nextReddit) {
+    this.props.dispatch(selectReddit(nextReddit))
+  }
 
-		return (
-			<div>
-				<h3>Hey,</h3>
-				<h4>I am a simple React Application !</h4>
-			</div>
-		);
-		
-	}
+  handleRefreshClick(e) {
+    e.preventDefault()
+    const { dispatch, selectedReddit } = this.props
+    dispatch(invalidateReddit(selectedReddit))
+  }
+
+  render() {
+    const { selectedReddit, posts, isFetching, lastUpdated } = this.props
+    return (
+      <div>
+        <Picker value={selectedReddit}
+                onChange={this.handleChange}
+                options={[ 'reactjs', 'frontend', 'webpack']} />
+        <p>
+          {lastUpdated &&
+            <span>
+              Last updated at {new Date(lastUpdated).toLocaleTimeString()}.
+              {' '}
+            </span>
+          }
+          {!isFetching &&
+            <a href="#"
+               onClick={this.handleRefreshClick}>
+              Refresh
+            </a>
+          }
+        </p>
+        {isFetching && posts.length === 0 &&
+          <h2>Loading...</h2>
+        }
+        {!isFetching && posts.length === 0 &&
+          <h2>Empty.</h2>
+        }
+        {posts.length > 0 &&
+          <div style={{ opacity: isFetching ? 0.5 : 1 }}>
+            <Posts posts={posts} />
+          </div>
+        }
+      </div>
+    )
+  }
 }
 
-export default Application;
+Application.propTypes = {
+  selectedReddit: PropTypes.string.isRequired,
+  posts: PropTypes.array.isRequired,
+  isFetching: PropTypes.bool.isRequired,
+  lastUpdated: PropTypes.number,
+  dispatch: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+  const { selectedReddit, postsByReddit } = state
+  const {
+    isFetching,
+    lastUpdated,
+    items: posts
+  } = postsByReddit[selectedReddit] || {
+    isFetching: true,
+    items: []
+  }
+
+  return {
+    selectedReddit,
+    posts,
+    isFetching,
+    lastUpdated
+  }
+}
+
+export default connect(mapStateToProps)(Application)
